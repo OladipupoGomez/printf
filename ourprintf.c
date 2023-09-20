@@ -30,8 +30,7 @@ characters_print += write(1, &c, 1);
 else if (*format == 's')
 {
 char *str = va_arg(args, char*);
-int i = 0;
-while (str[i] != '\0')
+int i = 0; while (str[i] != '\0')
 {
 characters_print += write(1, &str[i], 1);
 i++;
