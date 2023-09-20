@@ -6,59 +6,47 @@
 *Return: the number of characters printed
 *(excluding the null byte used to end output to strings)
 */
-
 int _printf(const char *format, ...)
 {
 int characters_print = 0;
-va_list list_of_args;
-
+va_list args;
+va_start(args, format);
 if (format == NULL)
-{
 return (-1);
-}
-
-va_start(list_of_args, format);
-
 while (*format)
 {
-if (*format != '%')
-{
-write(1, format, 1);
-characters_print++;
-}
-else
+if (*format == '%')
 {
 format++;
 if (*format == '\0')
-{
 break;
-}
 else if (*format == '%')
-{
-write(1, format, 1);
-characters_print++;
-}
+characters_print += write(1, format, 1);
 else if (*format == 'c')
 {
-char c = va_arg(list_of_args, int);
-write(1, &c, 1);
-characters_print++;
+char c = va_arg(args, int);
+characters_print += write(1, &c, 1);
 }
 else if (*format == 's')
 {
-char *str = va_arg(list_of_args, char*);
-int str_len = 0;
-while (str[str_len] != '\0')
+char *str = va_arg(args, char*);
+int i = 0;
+while (str[i] != '\0')
 {
-str_len++;
-}
-write(1, str, str_len);
-characters_print += str_len;
+characters_print += write(1, &str[i], 1);
+i++;
 }
 }
+else
+{
+va_end(args);
+return (-1);
+}
+}
+else
+characters_print += write(1, format, 1);
 format++;
 }
-
-va_end(list_of_args);
+va_end(args);
 return (characters_print);
 }
