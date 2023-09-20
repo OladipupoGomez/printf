@@ -10,12 +10,12 @@ int _printf(const char *format, ...)
 {
 int characters_print = 0;
 va_list args;
-va_start(args, format);
 if (format == NULL)
 return (-1);
+va_start(args, format);
 while (*format)
 {
-if (*format == '%')
+if (*format != '%')
 {
 format++;
 if (*format == '\0')
