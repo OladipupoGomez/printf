@@ -22,7 +22,7 @@ else
 {
 while (--index >= 0)
 {
-char digit = binary[i] + '0';
+char digit = binary[index] + '0';
 write(1, &digit, 1);
 }
 }
@@ -76,9 +76,9 @@ do {
 num_str[i++] = num % 10 + '0';
 num /= 10;
 }
-while
+while (num > 0);
 {
-(num > 0);
+write(1, &num_str, 1);
 }
 if (is_negative)
 num_str[i++] = '-';
